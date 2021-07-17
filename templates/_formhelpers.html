@@ -1,7 +1,7 @@
 {% macro render_field(field, label_visible=true) -%}
      <div class="form-group {% if field.errors %}has-error{% endif %} {{ kwargs.pop('class_', '') }}">
         {% if field.type != 'HiddenField' and field.type != 'CSRFTokenField' and label_visible and field.name != 'id' and field.name != 'form_name' %}
-            <label for="{{ field.id }}" class="control-label">{{ field.label }}</label>
+            {{ field.label }}
         {% endif %}
         {{ field(class_='form-control', **kwargs) }}
         {% if field.errors %}
@@ -14,18 +14,16 @@
 
 {% macro render_checkbox_field(field) -%}
     <div class="checkbox">
-        <label>
+        <div style="margin-left:20px;">
             {{ field(type='checkbox', **kwargs) }} {{ field.label }}
-        </label>
+        </div>
     </div>
 {%- endmacro %}
 
 {% macro render_radio_field(field) -%}
     {% for value, label, _ in field.iter_choices() %}
         <div class="radio">
-            <label>
-                <input type="radio" name="{{ field.id }}" id="{{ field.id }}" value="{{ value }}">{{ label }}
-            </label>
+                <input type="radio" name="{{ field.id }}" id="{{ field.id }}" value="{{ value }}">{{ label }} 
         </div>
     {% endfor %}
 {%- endmacro %}
